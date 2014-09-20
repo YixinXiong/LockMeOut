@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
             listener = (OnButtonClickListener) activity;
         } else {
             throw new ClassCastException(activity.toString()
-                    + " must implemenet MyListFragment.OnItemSelectedListener");
+                    + " must implement MyListFragment.OnItemSelectedListener");
         }
     }
 

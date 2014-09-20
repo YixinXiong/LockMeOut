@@ -11,7 +11,12 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
+import com.hackthenorth.lockmeout.app.LockPhone.EndTime;
+import com.hackthenorth.lockmeout.app.LockPhone.LockPhoneFragment;
+import com.hackthenorth.lockmeout.app.LockPhone.StartTime;
 import com.hackthenorth.lockmeout.app.util.SystemUiHider;
+
+import java.util.Date;
 
 
 /**
@@ -20,7 +25,7 @@ import com.hackthenorth.lockmeout.app.util.SystemUiHider;
  *
  * @see SystemUiHider
  */
-public class HomeActivity extends FragmentActivity implements HomeFragment.OnButtonClickListener, LockPhoneFragment.OnLockSelectedListener{
+public class HomeActivity extends FragmentActivity implements HomeFragment.OnButtonClickListener, LockPhoneFragment.OnSaveSelectedListener, EndTime.OnLockSelectedListener {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -55,7 +60,8 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
 
     private PagerAdapter mPagerAdapter;
 
-    private LockPhoneFragment lockPhoneFragment;
+    private StartTime startTimeFragment;
+    private EndTime endTimeFragment;
 
     private LockAppFragment lockAppFragment;
 
@@ -69,6 +75,16 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
 
     private boolean adminEnabled;
 
+    private int startMinute;
+    private int startHour;
+    private int startDay;
+    private int startMonth;
+
+    private int endMinute;
+    private int endHour;
+    private int endDay;
+    private int endMonth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +96,8 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
         devicePolicyManager = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
 
         fragmentManager = getSupportFragmentManager();
-        lockPhoneFragment = LockPhoneFragment.newInstance("hi");
+        startTimeFragment = new StartTime();
+        endTimeFragment = new EndTime();
         lockAppFragment = LockAppFragment.newInstance("hello");
         homeFragment = HomeFragment.newInstance("hello");
 
@@ -130,15 +147,36 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
 
     public void handleButtonClicked(int i){
         if(i == 1){
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, lockPhoneFragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, startTimeFragment).commit();
         } else{
             fragmentManager.beginTransaction().replace(R.id.fragment_container, lockAppFragment).commit();
         }
     }
 
-    public void handleLock(int startMinute, int startHour){
+    public void saveTime(int minute, int hour, int day, int month, String direction){
         Toast.makeText(getApplicationContext(), "Start minute: " + startMinute + " Start hour: " + startHour,
                 Toast.LENGTH_LONG).show();
+        if(direction.equals("next")){
+            startMinute = minute;
+            startHour = hour;
+            startDay = day;
+            startMonth = month;
+
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, endTimeFragment).commit();
+        } else {
+            endMinute = minute;
+            endHour = hour;
+            endDay = day;
+            endMonth = month;
+
+            if(direction.equals("back")){
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, startTimeFragment).commit();
+            }
+        }
+    }
+
+    public void handleLock(){
+        Date startTime = new Date();
         devicePolicyManager.resetPassword("0000", 0);
     }
 

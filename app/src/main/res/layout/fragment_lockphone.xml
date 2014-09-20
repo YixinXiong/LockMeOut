@@ -1,40 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/lockapp_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="25dp"
     android:background="#ffff9999"
-    android:paddingTop="20dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:text="Start Date"/>
+    android:orientation="vertical">
 
     <TimePicker xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/start_date"
-        android:layout_centerHorizontal="true"
+        android:id="@+id/time_picker"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     </TimePicker>
 
     <DatePicker
+        android:id="@+id/date_picker"
         android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/start_date"
         android:calendarViewShown="false" ></DatePicker>
 
-
-    <Button
-        android:id="@+id/lock_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/start_date"
-        android:layout_centerHorizontal="true"
-        android:text="Lock my phone!"/>
-
-
-</RelativeLayout>
+</LinearLayout>
