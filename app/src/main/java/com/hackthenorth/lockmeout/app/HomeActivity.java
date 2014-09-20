@@ -168,12 +168,10 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
 
     public void handleButtonClicked(int i){
         if(i == 1){
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, lockPhoneFragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, startTimeFragment).commit();
         } else if( i == 1000 ) {
             fragmentManager.beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
         }else{
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, startTimeFragment).commit();
-        } else{
             fragmentManager.beginTransaction().replace(R.id.fragment_container, lockAppFragment).commit();
         }
     }
