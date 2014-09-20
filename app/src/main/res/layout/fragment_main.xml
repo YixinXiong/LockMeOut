@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/homefragment"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingTop="200dp"
+    android:background="#ffff9999">
+
+    <Button
+        android:id="@+id/lockphone"
+        android:layout_toLeftOf="@+id/stylingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lock_phone"/>
+
+    <TextView
+        android:id="@+id/stylingTextView"
+        android:layout_width="25dp"
+        android:layout_height="10dp"
+        android:layout_centerHorizontal="true"/>
+
+
+    <Button
+        android:id="@+id/lockapps"
+        android:layout_toRightOf="@id/stylingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lock_app"/>
+
+
+</RelativeLayout>

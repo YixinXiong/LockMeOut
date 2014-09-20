@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LockMeOut</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="lock_phone">LOCK MY PHONE</string>
+    <string name="lock_app">LOCK MY APP</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="device_admin_description">Device admin description</string>
+    <string name="device_admin">Device admin</string>
+
+</resources>
