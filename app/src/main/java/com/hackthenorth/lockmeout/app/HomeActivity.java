@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.hackthenorth.lockmeout.app.LockPhone.EndTime;
@@ -89,6 +90,8 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         if (savedInstanceState != null) {
             adminEnabled = savedInstanceState.getBoolean(ADMINENABLED);
         }
@@ -154,7 +157,7 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
     }
 
     public void saveTime(int minute, int hour, int day, int month, String direction){
-        Toast.makeText(getApplicationContext(), "Start minute: " + startMinute + " Start hour: " + startHour,
+        Toast.makeText(getApplicationContext(), "Minute: " + minute + " Hour: " + hour + " Day: " + day + " Month: " + month,
                 Toast.LENGTH_LONG).show();
         if(direction.equals("next")){
             startMinute = minute;

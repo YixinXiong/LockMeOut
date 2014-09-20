@@ -11,7 +11,7 @@
         android:id="@+id/set_end_Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/set_start_time"
+        android:text="@string/set_end_time"
         android:textSize="25dp"
         android:layout_centerHorizontal="true"/>
 
