@@ -9,5 +9,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="device_admin_description">Device admin description</string>
     <string name="device_admin">Device admin</string>
+    <string name="set_start_time">Set your start time...</string>
+    <string name="set_end_time">Set your end time...</string>
+    <string name="back_button">Back</string>
+    <string name="next_button">Next</string>
+    <string name="lock_button">Lock!</string>
 
 </resources>

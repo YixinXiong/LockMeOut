@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_starttime"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffff9999"
+    android:paddingTop="40dp">
+
+    <TextView
+        android:id="@+id/set_start_Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_start_time"
+        android:textSize="25dp"
+        android:layout_centerHorizontal="true"/>
+
+    <include layout="@layout/fragment_lockphone"
+        android:layout_below="@id/set_start_Text"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"/>
+
+</RelativeLayout>
