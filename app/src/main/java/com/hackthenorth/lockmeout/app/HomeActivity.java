@@ -17,6 +17,8 @@ import com.hackthenorth.lockmeout.app.LockPhone.LockPhoneFragment;
 import com.hackthenorth.lockmeout.app.LockPhone.StartTime;
 import com.hackthenorth.lockmeout.app.util.SystemUiHider;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Date;
 
 
@@ -26,7 +28,7 @@ import java.util.Date;
  *
  * @see SystemUiHider
  */
-public class HomeActivity extends FragmentActivity implements HomeFragment.OnButtonClickListener, LockPhoneFragment.OnSaveSelectedListener, EndTime.OnLockSelectedListener {
+public class HomeActivity extends FragmentActivity implements HomeFragment.OnButtonClickListener, LoginFragment.OnButtonClickListener, LockPhoneFragment.OnSaveSelectedListener, EndTime.OnLockSelectedListener {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -70,6 +72,8 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
 
     private FragmentManager fragmentManager;
 
+    private LoginFragment loginFragment;
+
     private DevicePolicyManager devicePolicyManager;
 
     private ComponentName deviceAdmin;
@@ -86,6 +90,19 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
     private int endDay;
     private int endMonth;
 
+    private final String EMAIL_FILENAME = "lockmeoutemail";
+
+    private boolean hasAlreadyAccessed(){
+
+
+        FileInputStream inputStream;
+        try {
+            inputStream = openFileInput(EMAIL_FILENAME);
+            return true;
+        } catch (FileNotFoundException e) {
+            return false;
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,14 +120,15 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
         endTimeFragment = new EndTime();
         lockAppFragment = LockAppFragment.newInstance("hello");
         homeFragment = HomeFragment.newInstance("hello");
+        loginFragment = LoginFragment.newInstance(hasAlreadyAccessed(), EMAIL_FILENAME);
 
         setContentView(R.layout.fragment_layout_container);
 
         deviceAdmin = new ComponentName(this, DeviceAdmin.class);
 
-        //setContentView(R.layout.view_pager_home);
 
-        fragmentManager.beginTransaction().add(R.id.fragment_container, homeFragment).commit();
+
+        fragmentManager.beginTransaction().add(R.id.fragment_container, loginFragment).commit();
 
         if (!adminEnabled) {
             // Launch the activity to have the user enable our admin.
@@ -151,7 +169,9 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
     public void handleButtonClicked(int i){
         if(i == 1){
             fragmentManager.beginTransaction().replace(R.id.fragment_container, startTimeFragment).commit();
-        } else{
+        } else if( i == 1000 ) {
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
+        }else{
             fragmentManager.beginTransaction().replace(R.id.fragment_container, lockAppFragment).commit();
         }
     }
