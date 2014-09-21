@@ -15,8 +15,10 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.hackthenorth.lockmeout.app.R;
+import com.hackthenorth.lockmeout.app.Timer.TimerService;
 
 import java.lang.reflect.Field;
+import java.util.Calendar;
 
 /**
  * Created by Berries on 2014-09-19.
@@ -29,6 +31,11 @@ public class EndTime extends LockPhoneFragment {
     private int minute;
     private int day;
     private int month;
+    public long startTime;
+    public Context ctx;
+    public String startTimeFile = "com.hackthenorth.lockmeout.startTime";
+    public String endTimeFile = "com.hackthenorth.lockmeout.endTime";
+    public SharedPreferences prefs;
 
     private TimePicker timePicker;
     private DatePicker datePicker;
@@ -47,6 +54,8 @@ public class EndTime extends LockPhoneFragment {
 
         View view = (View) inflater.inflate(
                 R.layout.fragment_endtime, container, false);
+        prefs = ctx.getSharedPreferences(
+                "com.hackthenorth.lockmeout", Context.MODE_PRIVATE);
 
         timeLayout = inflater.inflate(R.layout.time_dialog, null);
         dateLayout = inflater.inflate(R.layout.date_dialog, null);
@@ -99,6 +108,8 @@ public class EndTime extends LockPhoneFragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                saveClicked(timePicker.getCurrentMinute(), timePicker.getCurrentHour(), datePicker.getDayOfMonth(), datePicker.getMonth(), "back");
                 saveClicked( minute, hour, day, month, "back");
             }
         });
@@ -108,9 +119,138 @@ public class EndTime extends LockPhoneFragment {
         lockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int minute = timePicker.getCurrentMinute();
+                int hour = timePicker.getCurrentHour();
+                int day = datePicker.getDayOfMonth();
+                int month = datePicker.getMonth();
 
                 saveClicked(minute, hour, day, month, "");
                 listener.promptLock();
+                Toast.makeText(ctx.getApplicationContext(), "TESTING", Toast.LENGTH_LONG).show();
+
+                java.util.Calendar calendar = java.util.Calendar.getInstance();
+
+                Calendar cl = Calendar.getInstance();
+                Calendar cl2 = Calendar.getInstance();
+
+                switch (datePicker.getMonth()) {
+                    case 0:
+                        calendar.set(datePicker.getYear(), Calendar.JANUARY, datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                        break;
+                    case 1:
+                        calendar.set(datePicker.getYear(), Calendar.FEBRUARY, datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                        break;
+                    case 2:
+                        calendar.set(datePicker.getYear(), Calendar.MARCH, datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                        break;
+                    case 3:
+                        calendar.set(datePicker.getYear(), Calendar.APRIL, datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                        break;
+                    case 4:
+                        calendar.set(datePicker.getYear(), Calendar.MAY, datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                        break;
+                    case 5:
+                        calendar.set(datePicker.getYear(), Calendar.JUNE, datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                        break;
+                    case 6:
+                        calendar.set(datePicker.getYear(), Calendar.JULY, datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                        break;
+                    case 7:
+                        calendar.set(datePicker.getYear(), Calendar.AUGUST, datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                        break;
+                    case 8:
+                        calendar.set(datePicker.getYear(), Calendar.SEPTEMBER, datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                        break;
+                    case 9:
+                        calendar.set(datePicker.getYear(), Calendar.OCTOBER, datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                        break;
+                    case 10:
+                        calendar.set(datePicker.getYear(), Calendar.NOVEMBER, datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                        break;
+                    case 11:
+                        calendar.set(datePicker.getYear(), Calendar.DECEMBER, datePicker.getDayOfMonth(),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                        break;
+                    default:
+                        break;
+                }
+                long endTime = calendar.getTimeInMillis();
+                Log.d("endTime", "The very first endTIme: " + endTime);
+                long startTime = prefs.getLong(startTimeFile, 0);
+
+                if (endTime < startTime) {
+                    switch (datePicker.getMonth()) {
+                        case 0:
+                            calendar.set(datePicker.getYear() + 1, Calendar.JANUARY, datePicker.getDayOfMonth(),
+                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                            break;
+                        case 1:
+                            calendar.set(datePicker.getYear() + 1, Calendar.FEBRUARY, datePicker.getDayOfMonth(),
+                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                            break;
+                        case 2:
+                            calendar.set(datePicker.getYear() + 1, Calendar.MARCH, datePicker.getDayOfMonth(),
+                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                            break;
+                        case 3:
+                            calendar.set(datePicker.getYear() + 1, Calendar.APRIL, datePicker.getDayOfMonth(),
+                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                            break;
+                        case 4:
+                            calendar.set(datePicker.getYear() + 1, Calendar.MAY, datePicker.getDayOfMonth(),
+                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                            break;
+                        case 5:
+                            calendar.set(datePicker.getYear() + 1, Calendar.JUNE, datePicker.getDayOfMonth(),
+                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                            break;
+                        case 6:
+                            calendar.set(datePicker.getYear() + 1, Calendar.JULY, datePicker.getDayOfMonth(),
+                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                            break;
+                        case 7:
+                            calendar.set(datePicker.getYear() + 1, Calendar.AUGUST, datePicker.getDayOfMonth(),
+                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                            break;
+                        case 8:
+                            calendar.set(datePicker.getYear() + 1, Calendar.SEPTEMBER, datePicker.getDayOfMonth(),
+                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                            break;
+                        case 9:
+                            calendar.set(datePicker.getYear() + 1, Calendar.OCTOBER, datePicker.getDayOfMonth(),
+                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                            break;
+                        case 10:
+                            calendar.set(datePicker.getYear() + 1, Calendar.NOVEMBER, datePicker.getDayOfMonth(),
+                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                            break;
+                        case 11:
+                            calendar.set(datePicker.getYear() + 1, Calendar.DECEMBER, datePicker.getDayOfMonth(),
+                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    endTime = calendar.getTimeInMillis();
+                    Log.d("endTime", "The very second endTIme: " + endTime);
+                }
+                prefs.edit().putLong(endTimeFile, endTime).apply();
+                long tmpEndTime = prefs.getLong(endTimeFile, 0);
+
+                //saveClicked(minute, hour, day, month, "");
+                listener.handleLock(datePicker, timePicker );
             }
         });
 
@@ -125,6 +265,7 @@ public class EndTime extends LockPhoneFragment {
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
+        ctx = activity.getApplicationContext();
         if (activity instanceof OnLockSelectedListener) {
             listener = (OnLockSelectedListener) activity;
         } else {

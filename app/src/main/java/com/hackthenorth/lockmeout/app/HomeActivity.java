@@ -4,21 +4,31 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Window;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.hackthenorth.lockmeout.app.LockPhone.EndTime;
 import com.hackthenorth.lockmeout.app.LockPhone.LockPhoneFragment;
 import com.hackthenorth.lockmeout.app.LockPhone.StartTime;
+import com.hackthenorth.lockmeout.app.Timer.TimerService;
 import com.hackthenorth.lockmeout.app.util.SystemUiHider;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -90,9 +100,14 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
     private int endDay;
     private int endMonth;
 
+    Intent serviceIntent;
+    public String startTimeFile = "com.hackthenorth.lockmeout.startTime";
+    public String endTimeFile = "com.hackthenorth.lockmeout.time.theEndTime";
+    public String ENDTIME_FILENAME = "endtimefilename";
+
     private final String EMAIL_FILENAME = "lockmeoutemail";
 
-    private boolean hasAlreadyAccessed(){
+    private boolean hasAlreadyAccessed() {
 
 
         FileInputStream inputStream;
@@ -103,6 +118,7 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
             return false;
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +129,7 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
             adminEnabled = savedInstanceState.getBoolean(ADMINENABLED);
         }
 
-        devicePolicyManager = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
+        devicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
 
         fragmentManager = getSupportFragmentManager();
         startTimeFragment = new StartTime();
@@ -121,6 +137,7 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
         lockAppFragment = LockAppFragment.newInstance("hello");
         homeFragment = HomeFragment.newInstance("hello");
         loginFragment = LoginFragment.newInstance(hasAlreadyAccessed(), EMAIL_FILENAME);
+        serviceIntent = new Intent(this, TimerService.class);
 
         setContentView(R.layout.fragment_layout_container);
 
@@ -147,11 +164,11 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == 1){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 adminEnabled = true;
-            } else{
+            } else {
                 adminEnabled = false;
             }
         }
@@ -166,18 +183,18 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    public void handleButtonClicked(int i){
-        if(i == 1){
+    public void handleButtonClicked(int i) {
+        if (i == 1) {
             fragmentManager.beginTransaction().replace(R.id.fragment_container, startTimeFragment).commit();
         } else {
             fragmentManager.beginTransaction().replace(R.id.fragment_container, lockAppFragment).commit();
         }
     }
 
-    public void saveTime(int minute, int hour, int day, int month, String direction){
-        Toast.makeText(getApplicationContext(), "Minute: " + minute + " Hour: " + hour + " Day: " + day + " Month: " + month,
-                Toast.LENGTH_LONG).show();
-        if(direction.equals("next")){
+    public void saveTime(int minute, int hour, int day, int month, String direction) {
+        //Toast.makeText(getApplicationContext(), "Minute: " + minute + " Hour: " + hour + " Day: " + day + " Month: " + month,
+        //        Toast.LENGTH_LONG).show();
+        if (direction.equals("next")) {
             startMinute = minute;
             startHour = hour;
             startDay = day;
@@ -190,12 +207,18 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
             endDay = day;
             endMonth = month;
 
-            if(direction.equals("back")){
+            if (direction.equals("back")) {
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, startTimeFragment).commit();
             }
         }
     }
 
+    public void handleLock(DatePicker datePicker, TimePicker timePicker) {
+        //devicePolicyManager.resetPassword("0000", 0);
+
+        Log.d("service", "The service has begun!");
+
+        startService(serviceIntent);
     public void promptLock(){
         Date startTime = new Date();
         EnterPasswordDialogue enterPasswordDialogue = new EnterPasswordDialogue();
