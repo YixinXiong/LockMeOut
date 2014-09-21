@@ -75,7 +75,7 @@ public class EndTime extends LockPhoneFragment {
                 int month = datePicker.getMonth();
 
                 saveClicked(minute, hour, day, month, "");
-                listener.handleLock();
+                listener.promptLock();
             }
         });
 
@@ -84,7 +84,7 @@ public class EndTime extends LockPhoneFragment {
 
 
     public interface OnLockSelectedListener{
-        public void handleLock();
+        public void promptLock();
     }
 
     @Override

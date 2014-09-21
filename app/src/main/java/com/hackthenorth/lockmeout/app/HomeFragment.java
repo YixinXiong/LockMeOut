@@ -15,7 +15,7 @@ import android.widget.Button;
 public class HomeFragment extends Fragment {
     public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
     final FragmentManager fragmentManager = getFragmentManager();
-    private OnButtonClickListener listener;
+    private OnChooseLockTypeListener listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,33 +29,29 @@ public class HomeFragment extends Fragment {
         lockPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonClicked(1);
+                listener.handleButtonClicked(1);
             }
         });
 
         lockApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonClicked(2);
+                listener.handleButtonClicked(2);
             }
         });
 
         return rootView;
     }
 
-    public void buttonClicked(int i){
-        listener.handleButtonClicked(i);
-    }
-
-    public interface OnButtonClickListener{
+    public interface OnChooseLockTypeListener {
         public void handleButtonClicked(int i);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof OnButtonClickListener) {
-            listener = (OnButtonClickListener) activity;
+        if (activity instanceof OnChooseLockTypeListener) {
+            listener = (OnChooseLockTypeListener) activity;
         } else {
             throw new ClassCastException(activity.toString()
                     + " must implement MyListFragment.OnItemSelectedListener");
