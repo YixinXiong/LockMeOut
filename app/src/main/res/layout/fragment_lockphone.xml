@@ -7,21 +7,29 @@
     android:paddingTop="25dp"
     android:background="@android:color/transparent"
     android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
-    <TimePicker xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/time_picker"
-        android:gravity="center"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </TimePicker>
+        <TimePicker xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/time_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+        </TimePicker>
 
-    <DatePicker
-        android:id="@+id/date_picker"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content"
-        android:calendarViewShown="false" ></DatePicker>
+        <DatePicker
+            android:id="@+id/date_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/time_picker"
+            android:calendarViewShown="false" >
+
+        </DatePicker>
+
+    </RelativeLayout>
+
 
 </LinearLayout>

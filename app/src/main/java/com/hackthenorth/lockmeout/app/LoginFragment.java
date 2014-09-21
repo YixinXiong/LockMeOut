@@ -58,7 +58,7 @@ public class LoginFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     if( checkCredentials() ){
-                        listener.handleButtonClicked(1000);
+                        listener.handleButtonClicked(1);
                     }else{
                         //show pass error
                     }
