@@ -29,7 +29,7 @@ public class HomeFragment extends Fragment {
         lockPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonClicked(1);
+                listener.handleButtonClicked(1);
             }
         });
 

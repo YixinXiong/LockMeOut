@@ -110,7 +110,7 @@ public class EndTime extends LockPhoneFragment {
             public void onClick(View v) {
 
                 saveClicked(minute, hour, day, month, "");
-                listener.handleLock();
+                listener.promptLock();
             }
         });
 
@@ -119,7 +119,7 @@ public class EndTime extends LockPhoneFragment {
 
 
     public interface OnLockSelectedListener{
-        public void handleLock();
+        public void promptLock();
     }
 
     @Override

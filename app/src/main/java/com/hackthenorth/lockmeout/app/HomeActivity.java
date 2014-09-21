@@ -196,9 +196,20 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
         }
     }
 
-    public void handleLock(){
+    public void promptLock(){
         Date startTime = new Date();
-        devicePolicyManager.resetPassword("0000", 0);
+        EnterPasswordDialogue enterPasswordDialogue = new EnterPasswordDialogue();
+        enterPasswordDialogue.show(fragmentManager, "dialog");
+    }
+
+    public void handleLock(String passcode){
+        if(passcode.equals("")){
+            //try to get rid of password altogether
+        }else{
+
+            Log.e("Passcode", passcode);
+            devicePolicyManager.resetPassword(passcode, 0);
+        }
     }
 
     @Override

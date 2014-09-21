@@ -13,5 +13,8 @@
     <string name="back_button">Back</string>
     <string name="next_button">Next</string>
     <string name="lock_button">Lock!</string>
+    <string name="lock_me_out">Lock me out!</string>
+    <string name="wait">Wait...</string>
+    <string name="enter_password">Enter the passcode you would like us to reset to after time is up.</string>
 
 </resources>
