@@ -16,12 +16,34 @@
         android:textStyle="bold"
         android:textColor="@color/blackLMO"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"/>
-    <include
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:text="Set Time"
+        android:textColor="@color/redLMO"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:id="@+id/btn_set_time_end"
         android:layout_below="@id/end_text"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        layout="@layout/fragment_lockphone"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/btn_set_stuff"/>
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:text="Set Date"
+        android:textColor="@color/redLMO"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:id="@+id/btn_set_date_end"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/btn_set_time_end"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_set_stuff"/>
 
     <Button
         android:id="@+id/lock_button"

@@ -169,9 +169,7 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
     public void handleButtonClicked(int i){
         if(i == 1){
             fragmentManager.beginTransaction().replace(R.id.fragment_container, startTimeFragment).commit();
-        } else if( i == 1000 ) {
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
-        }else{
+        } else {
             fragmentManager.beginTransaction().replace(R.id.fragment_container, lockAppFragment).commit();
         }
     }
@@ -205,6 +203,6 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, loginFragment).commit();
     }
 }

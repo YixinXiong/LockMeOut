@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -59,6 +60,7 @@ public class LoginFragment extends Fragment {
                 public void onClick(View view) {
                     if( checkCredentials() ){
                         listener.handleButtonClicked(1);
+                        passEdtMain.clearFocus();
                     }else{
                         //show pass error
                     }

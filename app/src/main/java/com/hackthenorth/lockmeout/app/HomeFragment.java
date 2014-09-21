@@ -13,6 +13,7 @@ import android.widget.Button;
  * Created by Berries on 2014-09-19.
  */
 public class HomeFragment extends Fragment {
+
     public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
     final FragmentManager fragmentManager = getFragmentManager();
     private OnButtonClickListener listener;
@@ -24,7 +25,6 @@ public class HomeFragment extends Fragment {
                 R.layout.fragment_main, container, false);
 
         Button lockPhone = (Button) rootView.findViewById(R.id.lockphone);
-//        Button lockApp = (Button) rootView.findViewById(R.id.lockapps);
 
         lockPhone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,13 +32,7 @@ public class HomeFragment extends Fragment {
                 buttonClicked(1);
             }
         });
-//
-//        lockApp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                buttonClicked(2);
-//            }
-//        });
+
 
         return rootView;
     }

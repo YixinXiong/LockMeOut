@@ -19,11 +19,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"/>
 
-    <include layout="@layout/fragment_lockphone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/start_text"></include>
-
 
     <Button
             android:id="@+id/next_button"
@@ -37,5 +32,32 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="20dp"
             android:background="@drawable/next_btn_drawable"/>
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:text="Set Time"
+        android:textColor="@color/redLMO"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:id="@+id/btn_set_time_start"
+        android:layout_below="@+id/start_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/btn_set_stuff"/>
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:text="Set Date"
+        android:textColor="@color/redLMO"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:id="@+id/btn_set_date_start"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/btn_set_time_start"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_set_stuff"/>
+
 
 </RelativeLayout>

@@ -6,5 +6,6 @@
     <color name="redLMO">#fff35c5a</color>
     <color name="whiteLMO">#FFFEFC</color>
     <color name="blackLMO">#020003</color>
+    <color name="widgetColor">#ff394344</color>
 
 </resources>
