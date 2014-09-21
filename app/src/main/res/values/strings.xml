@@ -14,5 +14,8 @@
     <string name="back_button">Back</string>
     <string name="next_button">Next</string>
     <string name="lock_button">Lock!</string>
+    <string name="title_activity_unlock">unlock</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
