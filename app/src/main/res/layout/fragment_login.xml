@@ -3,62 +3,87 @@
     android:id="@+id/fragment_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/whiteLMO"
     tools:context="com.hackthenorth.lockmeout.app.LoginFragment">
 
-    <RelativeLayout
-        android:layout_width="300dp"
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="@string/app_name"
+        android:id="@+id/titleCreate"
+        android:textSize="45dp"
+        android:textStyle="bold"
+        android:textColor="@color/blackLMO"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="@string/app_motto"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/greenLMO"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@id/titleCreate"
+        android:layout_marginTop="45dp"/>
+
+    <LinearLayout
+        android:layout_width="255dp"
         android:layout_height="180dp"
+        android:orientation="vertical"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:id="@+id/relativeLayout">
+        android:id="@+id/linearLayout">
 
-        <EditText
-            android:layout_width="250dp"
-            android:layout_height="32dp"
-            android:inputType="textEmailAddress"
-            android:textColor="@android:color/black"
-            android:ems="10"
-            android:hint="E-mail Address"
-            android:id="@+id/email_input"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"/>
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="45dp"
+                android:inputType="textEmailAddress"
+                android:textColor="@android:color/black"
+                android:ems="10"
+                android:hint="  E-mail Address"
+                android:id="@+id/email_input"
+                android:background="@drawable/editbox"/>
 
-        <EditText
-            android:layout_width="250dp"
-            android:layout_height="32dp"
-            android:inputType="textPassword"
-            android:textColor="@android:color/black"
-            android:ems="10"
-            android:hint="Password"
-            android:layout_centerHorizontal="true"
-            android:layout_alignTop="@id/email_input"
-            android:layout_marginTop="40dp"
-            android:id="@+id/passwordInputNew"
-             />
-        <EditText
-            android:layout_width="250dp"
-            android:layout_height="32dp"
-            android:inputType="textPassword"
-            android:textColor="@android:color/black"
-            android:ems="10"
-            android:hint="Re-type Password"
-            android:layout_marginTop="40dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignTop="@id/passwordInputNew"
-            android:id="@+id/passwordInputNew2"
-            />
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="45dp"
+                android:inputType="textPassword"
+                android:textColor="@android:color/black"
+                android:ems="10"
+                android:hint=" Password"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:id="@+id/passwordInputNew"
+                android:background="@drawable/editbox" />
 
-    </RelativeLayout>
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:inputType="textPassword"
+                android:textColor="@android:color/black"
+                android:ems="10"
+                android:hint=" Re-type Password"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/passwordInputNew2"
+                android:background="@drawable/editbox"/>
 
+    </LinearLayout>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign In"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:textSize="18dp"
+        android:text="Create Account"
+        android:textStyle="bold"
+        android:textColor="@color/whiteLMO"
         android:id="@+id/btn_login"
-        android:layout_below="@+id/relativeLayout"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_green"/>
+
 
 </RelativeLayout>

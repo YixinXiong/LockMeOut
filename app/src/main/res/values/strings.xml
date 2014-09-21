@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">LockMeOut</string>
+    <string name="app_name">Lock Me Out</string>
+    <string name="app_motto">Just lock it.</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="lock_phone">LOCK MY PHONE</string>

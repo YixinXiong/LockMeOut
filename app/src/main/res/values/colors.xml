@@ -1,5 +1,10 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
+    <color name="grayLMO">#C9C8C7</color>
+    <color name="greenLMO">#428384</color>
+    <color name="redLMO">#fff35c5a</color>
+    <color name="whiteLMO">#FFFEFC</color>
+    <color name="blackLMO">#020003</color>
 
 </resources>

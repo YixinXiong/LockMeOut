@@ -24,7 +24,7 @@ public class HomeFragment extends Fragment {
                 R.layout.fragment_main, container, false);
 
         Button lockPhone = (Button) rootView.findViewById(R.id.lockphone);
-        Button lockApp = (Button) rootView.findViewById(R.id.lockapps);
+//        Button lockApp = (Button) rootView.findViewById(R.id.lockapps);
 
         lockPhone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,13 +32,13 @@ public class HomeFragment extends Fragment {
                 buttonClicked(1);
             }
         });
-
-        lockApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonClicked(2);
-            }
-        });
+//
+//        lockApp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                buttonClicked(2);
+//            }
+//        });
 
         return rootView;
     }

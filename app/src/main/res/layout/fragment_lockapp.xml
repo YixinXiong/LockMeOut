@@ -4,8 +4,30 @@
     android:id="@+id/lockapp_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffff9999">
+    android:background="@color/whiteLMO">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="@string/app_name"
+        android:id="@+id/titleCreate"
+        android:textSize="45dp"
+        android:textStyle="bold"
+        android:textColor="@color/blackLMO"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="@string/app_motto"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/greenLMO"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@id/titleCreate"
+        android:layout_marginTop="45dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
