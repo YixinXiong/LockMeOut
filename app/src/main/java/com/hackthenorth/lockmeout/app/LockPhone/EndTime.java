@@ -99,7 +99,7 @@ public class EndTime extends LockPhoneFragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveClicked(timePicker.getCurrentMinute(), timePicker.getCurrentHour(), datePicker.getDayOfMonth(), datePicker.getMonth(), "back");
+                saveClicked( minute, hour, day, month, "back");
             }
         });
 
@@ -108,10 +108,6 @@ public class EndTime extends LockPhoneFragment {
         lockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int minute = timePicker.getCurrentMinute();
-                int hour = timePicker.getCurrentHour();
-                int day = datePicker.getDayOfMonth();
-                int month = datePicker.getMonth();
 
                 saveClicked(minute, hour, day, month, "");
                 listener.handleLock();
