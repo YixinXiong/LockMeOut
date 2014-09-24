@@ -82,7 +82,7 @@ public class LoginFragment extends Fragment {
 
                     if( checkPasswordSame() ) {
                         if( setCredentials() ) {
-                            listener.handleButtonClicked(1000);
+                            listener.handleButtonClicked(1);
                         }else{
                             //
                         }

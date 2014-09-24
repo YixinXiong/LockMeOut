@@ -1,6 +1,7 @@
 package com.hackthenorth.lockmeout.app.Timer;
 
 import android.app.Service;
+import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,10 +23,13 @@ public class TimerService extends Service {
     long timerMilliSeconds;
     Boolean zone;
     Date time = new Date();
+    String passcode;
+    private DevicePolicyManager devicePolicyManager;
 
     String startTimeFile = "com.hackthenorth.lockmeout.startTime";
     String endTimeFile = "com.hackthenorth.lockmeout.endTime";
     //String zoneFile = "com.hackthenorth.lockmeout.zoneFile";
+    public String passcodeFile = "com.hackthenorth.lockmeout.passcode";
 
     SharedPreferences prefs;
 
@@ -38,6 +42,7 @@ public class TimerService extends Service {
         endTime = prefs.getLong(endTimeFile, 10);
         startTime = prefs.getLong(startTimeFile, 0);
 
+        devicePolicyManager = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
 
         currentTime = time.getTime();
         Log.d("TimerService","Current time: "+currentTime );
@@ -51,7 +56,7 @@ public class TimerService extends Service {
         if(currentTime > startTime && currentTime < endTime){
 
             timerMilliSeconds = endTime - currentTime;
-            timer = new TimeCounter(timerMilliSeconds,5000);
+            timer = new TimeCounter(30000,1800000);
         }
     }
 
@@ -73,15 +78,17 @@ public class TimerService extends Service {
             Log.d("aaa", "The service has been completed!");
             Toast.makeText(getApplicationContext(), "SERVICE COMPLETED", Toast.LENGTH_LONG).show();
             //Trigger the phone unlock event
-            //Intent unlock = new Intent(this,unlock.class);
+
+            passcode = prefs.getString(passcodeFile, "");
+            devicePolicyManager.resetPassword(passcode, 0);
             stopSelf();
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
-            Log.d("aaa", String.valueOf(millisUntilFinished/1000));
-            Toast.makeText(getApplicationContext(), (millisUntilFinished/1000)+"", Toast.LENGTH_LONG).show();
-            System.out.println((millisUntilFinished / 1000));
+            Log.d("aaa", String.valueOf(millisUntilFinished/60000));
+            Toast.makeText(getApplicationContext(), (millisUntilFinished/60000)+" mins left", Toast.LENGTH_LONG).show();
+            System.out.println((millisUntilFinished / 60000));
         }
     }
 

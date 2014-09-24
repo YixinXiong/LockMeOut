@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.hackthenorth.lockmeout.app.AlertDialogs.EnterPasswordDialogue;
 import com.hackthenorth.lockmeout.app.LockPhone.EndTime;
 import com.hackthenorth.lockmeout.app.LockPhone.LockPhoneFragment;
 import com.hackthenorth.lockmeout.app.LockPhone.StartTime;
@@ -38,7 +39,7 @@ import java.util.Date;
  *
  * @see SystemUiHider
  */
-public class HomeActivity extends FragmentActivity implements HomeFragment.OnButtonClickListener, LoginFragment.OnButtonClickListener, LockPhoneFragment.OnSaveSelectedListener, EndTime.OnLockSelectedListener {
+public class HomeActivity extends FragmentActivity implements HomeFragment.OnButtonClickListener, LoginFragment.OnButtonClickListener, LockPhoneFragment.OnSaveSelectedListener, EndTime.OnLockSelectedListener, EnterPasswordDialogue.OnLockTypeSelectedListener {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -101,9 +102,11 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
     private int endMonth;
 
     Intent serviceIntent;
+    SharedPreferences prefs;
     public String startTimeFile = "com.hackthenorth.lockmeout.startTime";
     public String endTimeFile = "com.hackthenorth.lockmeout.time.theEndTime";
     public String ENDTIME_FILENAME = "endtimefilename";
+    public String passcodeFile = "com.hackthenorth.lockmeout.passcode";
 
     private final String EMAIL_FILENAME = "lockmeoutemail";
 
@@ -131,6 +134,7 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
 
         devicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
 
+        prefs = getSharedPreferences("com.hackthenorth.lockmeout", Context.MODE_PRIVATE);
         fragmentManager = getSupportFragmentManager();
         startTimeFragment = new StartTime();
         endTimeFragment = new EndTime();
@@ -213,27 +217,37 @@ public class HomeActivity extends FragmentActivity implements HomeFragment.OnBut
         }
     }
 
-    public void handleLock(DatePicker datePicker, TimePicker timePicker) {
+    public void handleLock(String passcode) {
         //devicePolicyManager.resetPassword("0000", 0);
 
         Log.d("service", "The service has begun!");
 
+        int randomNum = (int) (Math.random()*9999);
+        Log.e("Number", String.valueOf(randomNum));
+        Log.e("Passcode", passcode);
+
+        devicePolicyManager.resetPassword("3555", 0);
+
+        prefs.edit().putString(passcodeFile, passcode).apply();
+
         startService(serviceIntent);
+    }
+
     public void promptLock(){
         Date startTime = new Date();
         EnterPasswordDialogue enterPasswordDialogue = new EnterPasswordDialogue();
         enterPasswordDialogue.show(fragmentManager, "dialog");
     }
 
-    public void handleLock(String passcode){
-        if(passcode.equals("")){
-            //try to get rid of password altogether
-        }else{
-
-            Log.e("Passcode", passcode);
-            devicePolicyManager.resetPassword(passcode, 0);
-        }
-    }
+//    public void handleLock(String passcode){
+//        if(passcode.equals("")){
+//            //try to get rid of password altogether
+//        }else{
+//
+//            Log.e("Passcode", passcode);
+//            devicePolicyManager.resetPassword(passcode, 0);
+//        }
+//    }
 
     @Override
     public void onBackPressed() {

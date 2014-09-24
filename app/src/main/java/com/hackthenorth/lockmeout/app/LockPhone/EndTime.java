@@ -2,7 +2,9 @@ package com.hackthenorth.lockmeout.app.LockPhone;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,11 +56,16 @@ public class EndTime extends LockPhoneFragment {
 
         View view = (View) inflater.inflate(
                 R.layout.fragment_endtime, container, false);
-        prefs = ctx.getSharedPreferences(
-                "com.hackthenorth.lockmeout", Context.MODE_PRIVATE);
+        prefs = ctx.getSharedPreferences("com.hackthenorth.lockmeout", Context.MODE_PRIVATE);
 
-        timeLayout = inflater.inflate(R.layout.time_dialog, null);
-        dateLayout = inflater.inflate(R.layout.date_dialog, null);
+        if(timeLayout == null) {
+            timeLayout = inflater.inflate(R.layout.time_dialog, null);
+        }
+
+        if(dateLayout == null){
+            dateLayout = inflater.inflate(R.layout.date_dialog, null);
+        }
+
         pickTimeDialog.setView(timeLayout);
         pickDateDialog.setView(dateLayout);
         datePicker = (DatePicker) dateLayout.findViewById(R.id.date_picker);
@@ -119,21 +126,15 @@ public class EndTime extends LockPhoneFragment {
         lockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int minute = timePicker.getCurrentMinute();
-                int hour = timePicker.getCurrentHour();
-                int day = datePicker.getDayOfMonth();
-                int month = datePicker.getMonth();
 
                 saveClicked(minute, hour, day, month, "");
-                listener.promptLock();
-                Toast.makeText(ctx.getApplicationContext(), "TESTING", Toast.LENGTH_LONG).show();
-
+                Toast.makeText(ctx, "TESTING", Toast.LENGTH_LONG).show();
                 java.util.Calendar calendar = java.util.Calendar.getInstance();
 
                 Calendar cl = Calendar.getInstance();
                 Calendar cl2 = Calendar.getInstance();
 
-                switch (datePicker.getMonth()) {
+                switch ( month ) {
                     case 0:
                         calendar.set(datePicker.getYear(), Calendar.JANUARY, datePicker.getDayOfMonth(),
                                 timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
@@ -249,8 +250,7 @@ public class EndTime extends LockPhoneFragment {
                 prefs.edit().putLong(endTimeFile, endTime).apply();
                 long tmpEndTime = prefs.getLong(endTimeFile, 0);
 
-                //saveClicked(minute, hour, day, month, "");
-                listener.handleLock(datePicker, timePicker );
+                listener.promptLock();
             }
         });
 
@@ -265,6 +265,7 @@ public class EndTime extends LockPhoneFragment {
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
+
         ctx = activity.getApplicationContext();
         if (activity instanceof OnLockSelectedListener) {
             listener = (OnLockSelectedListener) activity;

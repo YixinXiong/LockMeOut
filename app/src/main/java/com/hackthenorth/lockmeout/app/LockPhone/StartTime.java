@@ -61,8 +61,14 @@ public class StartTime extends LockPhoneFragment {
         View view = (View) inflater.inflate(
                 R.layout.fragment_starttime, container, false);
 
-        timeLayout = inflater.inflate(R.layout.time_dialog, null);
-        dateLayout = inflater.inflate(R.layout.date_dialog, null);
+        if(timeLayout == null) {
+            timeLayout = inflater.inflate(R.layout.time_dialog, null);
+        }
+
+        if(dateLayout == null) {
+            dateLayout = inflater.inflate(R.layout.date_dialog, null);
+        }
+
         pickTimeDialog.setView(timeLayout);
         pickDateDialog.setView(dateLayout);
         datePicker = (DatePicker) dateLayout.findViewById(R.id.date_picker);
@@ -174,14 +180,8 @@ public class StartTime extends LockPhoneFragment {
                 }
                 long startTime = calendar.getTimeInMillis();
                 String a = calendar.toString();
-                Toast.makeText(ctx.getApplicationContext(), "bang", Toast.LENGTH_LONG).show();
-                i++;
-                Log.d("service", "The startTime From startTime.java: "+a);
+
                 prefs.edit().putLong(startTimeFile, startTime).apply();
-                prefs.edit().putInt(iFile, i).apply();
-                result = prefs.getInt(iFile, 0);
-                Log.d("service", "i "+i);
-                //Toast.makeText(ctx.getApplicationContext(), result, Toast.LENGTH_LONG).show();
 
                 saveClicked(timePicker.getCurrentMinute(), timePicker.getCurrentHour(), datePicker.getDayOfMonth(), datePicker.getMonth(), "next");
 
